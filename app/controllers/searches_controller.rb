@@ -1,11 +1,14 @@
 class SearchesController < ApplicationController
+  before_action :authenticate_user!
+  # ユーザがログインしているか確認し、していなければログインページにリダイレクト
+
   def search
     # viewのform_withにて選択したmodelを@modelに代入（UserかBookか）
-    @model = params["model"]
+    @model = params[:model]
     # 選択した検索方法を@methodに代入（完全一致, 前方一致, 後方一致, 部分一致）
-    @method = params["method"]
+    @method = params[:method]
     # 検索ワードを@contentに代入
-    @content = params["content"]
+    @content = params[:content]
     # （@model, @method, @content）を代入したsearch_forを@recordsに代入
     @records = search_for(@model, @method, @content)
   end
@@ -36,7 +39,7 @@ class SearchesController < ApplicationController
       elsif method == 'forward_match'
         Book.where('title LIKE ?', content+'%')
       # 後方一致なら
-      elsif
+      elsif method == 'backward_match'
         Book.where('title LIKE ?', '%'+content)
       # 部分一致なら
       else
