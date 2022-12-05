@@ -1,0 +1,13 @@
+<div class="float-right m-1">
+<% if user_signed_in? %>
+  <%= form_with url: search_path, local: true, method: :get do |f| %>
+    <!--検索内容をcontentとしてアクションに送る-->
+    <%= f.text_field 'content' %>
+    <!--選択したモデルをmodelとしてアクションに送る-->
+    <%= f.select 'model', options_for_select({"User" => "user", "Book" => "book"}) %>
+    <!--検索方法を定義。選択した検索方法をmethodとしてアクションに送る-->
+    <%= f.select 'method', options_for_select({"完全一致" => "perfect_match", "前方一致" => "forward_match", "後方一致" => "backward_match", "部分一致" => "partial_match"}) %>
+    <%= f.submit '検索' %>
+  <% end %>
+<% end %>
+</div>
