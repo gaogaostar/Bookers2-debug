@@ -1,15 +1,18 @@
 class BookCommentsController < ApplicationController
+
   def create
-    book = Book.find(params[:book_id])
-    comment = current_user.book_comments.new(book_comment_params)
-    comment.book_id = book.id
-    comment.save
-    redirect_to book_path(book)
+    @book = Book.find(params[:book_id])
+    @comment = current_user.book_comments.new(book_comment_params)
+    @comment.book_id = @book.id
+    @comment.save
+    render :comments #render先にjsファイルを指定
   end
 
   def destroy
-    BookComment.find(params[:id]).destroy
-    redirect_to book_path(params[:book_id])
+    @book_comment = BookComment.find(params[:id])
+    @book_comment.destroy
+    @book = Book.find(params[:book_id])
+    render :comments #render先にjsファイルを指定
   end
 
   private

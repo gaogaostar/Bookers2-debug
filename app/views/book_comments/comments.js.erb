@@ -1,0 +1,5 @@
+$(".comments_area").html("<%= j(render 'book_comments/comments', book: @book) %>");
+<!--フォームを送信したあと、削除したあとフォームの値を空にする-->
+$("textarea").val('');
+<!--コメント数の更新も行う-->
+$(".comment_count").html("<%= j(render 'book_comments/count', book: @book) %>");
