@@ -25,6 +25,21 @@
           <td class="comment_count">
             <%= render 'book_comments/count', book: @book %>
           </td>
+          <!--星レビュー表示-->
+          <td id="star_rate<%= @book.id %>"></td>
+            <script>
+              let elem = document.querySelector('#star');
+              let opt = {
+              $('#star-rate<%= @book.id %>').empty();
+              $('#star-rate<%= @book.id%>').raty({
+                 size      : 36,
+                 starOff   : '<%= asset_path('star-off.png') %>',
+                 starOn    : '<%= asset_path('star-on.png') %>',
+                 half      : false,
+                 readOnly: true,
+                 score: <%= @book.star %>,
+               });
+            </script>
           <!--編集・削除ボタン-->
           <% if @book.user.id == current_user.id %>
             <td><%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success" %></td>

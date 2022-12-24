@@ -9,18 +9,21 @@
   </div>
   <!--星レビュー-->
   <div class="form-group row" id="star">
-    <%= f.label :star,"評価", class:'col-md-3 col-form-label' %>
+    <%= f.label :star,"Rate", class:'col-md-1 col-form-label' %>
     <%= f.hidden_field :star, id: :review_star %>
   </div>
   <script>
-    $('#star').empty();
-    $('#star').raty({
+  // scriptファイルをどのidの部分に配置するかを指定
+    let elem = document.querySelector('#star');
+    let opt = {
+      //星画像の指定などのオプションをここに記述,
       size: 36,
       starOff: '<%= asset_path('star-off.png') %>',
       starOn: '<%= asset_path('star-on.png') %>',
       scoreName: 'book[star]',
       half: false,
-    });
+     };
+    raty(elem,opt);
   </script>
 
   <div class="form-group">
